@@ -3,11 +3,12 @@ package com.ai.listrelated.loadmore;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 
 import com.ai.listrelated.loadmore.iface.LoadMoreContainer;
 import com.ai.listrelated.loadmore.iface.LoadMoreHandler;
 import com.ai.listrelated.loadmore.iface.LoadMoreUIHandler;
+import com.orhanobut.logger.Logger;
 
 /**
  * <b>Project:</b> ListRelated <br>
@@ -16,7 +17,7 @@ import com.ai.listrelated.loadmore.iface.LoadMoreUIHandler;
  * <b>Address:</b> qingyongai@gmail.com <br>
  * <b>Description:</b> Loadmore包裹的Layout <br>
  */
-public abstract class LoadMoreContainerBase extends LinearLayout implements LoadMoreContainer {
+public abstract class LoadMoreContainerBase extends FrameLayout implements LoadMoreContainer {
 
     private LoadMoreUIHandler mLoadMoreUIHandler;
     private LoadMoreHandler mLoadMoreHandler;
@@ -54,6 +55,7 @@ public abstract class LoadMoreContainerBase extends LinearLayout implements Load
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+        Logger.t("LoadMoreContainerBase").i("onFinishInflate");
         if (mFooterView != null) {
             addFooterView(mFooterView);
         }
