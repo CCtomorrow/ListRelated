@@ -8,7 +8,6 @@ import android.widget.FrameLayout;
 import com.ai.listrelated.loadmore.iface.LoadMoreContainer;
 import com.ai.listrelated.loadmore.iface.LoadMoreHandler;
 import com.ai.listrelated.loadmore.iface.LoadMoreUIHandler;
-import com.orhanobut.logger.Logger;
 
 /**
  * <b>Project:</b> ListRelated <br>
@@ -22,10 +21,10 @@ public abstract class LoadMoreContainerBase extends FrameLayout implements LoadM
     private LoadMoreUIHandler mLoadMoreUIHandler;
     private LoadMoreHandler mLoadMoreHandler;
 
-    private boolean mIsLoading = false;
     private boolean mHasMore = false;
-    private boolean mAutoLoadMore = true;
     private boolean mLoadError = false;
+    private boolean mIsLoading = false;
+    private boolean mAutoLoadMore = false;
 
     private View mFooterView;
 
@@ -55,7 +54,7 @@ public abstract class LoadMoreContainerBase extends FrameLayout implements LoadM
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        Logger.t("LoadMoreContainerBase").i("onFinishInflate");
+        // Logger.t("LoadMoreContainerBase").i("onFinishInflate");
         if (mFooterView != null) {
             addFooterView(mFooterView);
         }
@@ -82,6 +81,7 @@ public abstract class LoadMoreContainerBase extends FrameLayout implements LoadM
      */
     @SuppressWarnings("unused")
     protected void onReachBottom() {
+        // Logger.i("onReachBottom");
         if (mLoadError) return;
         if (mAutoLoadMore) {
             tryToPerformLoadMore();
