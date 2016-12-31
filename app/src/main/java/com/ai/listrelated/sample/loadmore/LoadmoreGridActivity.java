@@ -17,12 +17,12 @@ import java.util.List;
 
 /**
  * <b>Project:</b> ListRelated <br>
- * <b>Create Date:</b> 2016/12/30 <br>
+ * <b>Create Date:</b> 2016/12/31 <br>
  * <b>Author:</b> qy <br>
  * <b>Address:</b> qingyongai@gmail.com <br>
- * <b>Description:</b> 加载更多ListView测试 <br>
+ * <b>Description:</b> 加载更多GridView测试 <br>
  */
-public class LoadmoreListActivity extends Activity {
+public class LoadmoreGridActivity extends Activity {
 
     private ListView mListView;
     private LoadMoreListViewContainer mLoadWrap;
