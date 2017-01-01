@@ -1,1 +1,2 @@
-include ':app', ':listrelated'
+include ':listrelated'
+include ':sample'
