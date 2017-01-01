@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.ai.listrelated.sample.loadmore.LoadmoreListActivity"/>
+        <activity android:name="com.ai.listrelated.sample.loadmore.LoadmoreGridActivity"/>
     </application>
 
 </manifest>

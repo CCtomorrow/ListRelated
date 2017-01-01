@@ -40,11 +40,11 @@ public class LoadmoreListActivity extends Activity {
         setContentView(R.layout.load_more_list_view);
         mLoadWrap = (LoadMoreListViewContainer)
                 findViewById(R.id.load_more_list_view_container);
-        mListView = (ListView) findViewById(R.id.list);
+        mListView = (ListView) findViewById(R.id.load_more_list_view);
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mDatas);
-        mListView.setAdapter(mAdapter);
-        mLoadWrap.useDefaultFooter();
         mLoadWrap.setAutoLoadMore(true);
+        mLoadWrap.useDefaultFooter();
+        mListView.setAdapter(mAdapter);
         mLoadWrap.setLoadMoreHandler(new LoadMoreHandler() {
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {

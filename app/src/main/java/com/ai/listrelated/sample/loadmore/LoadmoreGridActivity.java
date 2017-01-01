@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
-import com.ai.listrelated.loadmore.LoadMoreListViewContainer;
+import com.ai.listrelated.loadmore.LoadMoreGridViewContainer;
 import com.ai.listrelated.loadmore.iface.LoadMoreContainer;
 import com.ai.listrelated.loadmore.iface.LoadMoreHandler;
 import com.ai.listrelated.sample.R;
+import com.ai.listrelated.view.GridViewWithHeaderAndFooter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +24,8 @@ import java.util.List;
  */
 public class LoadmoreGridActivity extends Activity {
 
-    private ListView mListView;
-    private LoadMoreListViewContainer mLoadWrap;
+    private GridViewWithHeaderAndFooter mGridView;
+    private LoadMoreGridViewContainer mLoadWrap;
     private int mTotalPage = 5;
     private volatile int mCurentPage = 0;
     private List<String> mDatas = new ArrayList<>();
@@ -37,14 +37,14 @@ public class LoadmoreGridActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.load_more_list_view);
-        mLoadWrap = (LoadMoreListViewContainer)
-                findViewById(R.id.load_more_list_view_container);
-        mListView = (ListView) findViewById(R.id.list);
+        setContentView(R.layout.load_more_grid_view);
+        mLoadWrap = (LoadMoreGridViewContainer)
+                findViewById(R.id.load_more_grid_view_container);
+        mGridView = (GridViewWithHeaderAndFooter) findViewById(R.id.load_more_grid_view);
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mDatas);
-        mListView.setAdapter(mAdapter);
-        mLoadWrap.useDefaultFooter();
         mLoadWrap.setAutoLoadMore(true);
+        mLoadWrap.useDefaultFooter();
+        mGridView.setAdapter(mAdapter);
         mLoadWrap.setLoadMoreHandler(new LoadMoreHandler() {
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {
@@ -71,7 +71,7 @@ public class LoadmoreGridActivity extends Activity {
                 }
 
                 final List<String> data = new ArrayList<>();
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < 30; i++) {
                     data.add("page:" + mCurentPage + "<=====>数据<=====>" + (i + 1));
                 }
                 mHandler.post(new Runnable() {

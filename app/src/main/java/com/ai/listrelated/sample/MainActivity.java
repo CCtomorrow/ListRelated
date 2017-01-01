@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.ai.listrelated.sample.loadmore.LoadmoreGridActivity;
 import com.ai.listrelated.sample.loadmore.LoadmoreListActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,4 +20,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, LoadmoreListActivity.class));
     }
 
+    public void loadmoreGridView(View view) {
+        startActivity(new Intent(this, LoadmoreGridActivity.class));
+    }
 }
