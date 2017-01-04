@@ -17,8 +17,6 @@ import com.ai.listrelated.adapter.recyclerview.utils.WrapperUtils;
  */
 public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    // TODO: 2017/1/3 需要和loadmore包里面的整合
-
     public static final int ITEM_TYPE_LOAD_MORE = Integer.MAX_VALUE - 2;
 
     private RecyclerView.Adapter mInnerAdapter;
@@ -62,9 +60,6 @@ public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (isShowLoadMore(position)) {
-            if (mOnLoadMoreListener != null) {
-                mOnLoadMoreListener.onLoadMoreRequested();
-            }
             return;
         }
         mInnerAdapter.onBindViewHolder(holder, position);
@@ -102,19 +97,6 @@ public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public int getItemCount() {
         return mInnerAdapter.getItemCount() + (hasLoadMore() ? 1 : 0);
-    }
-
-    public interface OnLoadMoreListener {
-        void onLoadMoreRequested();
-    }
-
-    private OnLoadMoreListener mOnLoadMoreListener;
-
-    public LoadMoreWrapper setOnLoadMoreListener(OnLoadMoreListener loadMoreListener) {
-        if (loadMoreListener != null) {
-            mOnLoadMoreListener = loadMoreListener;
-        }
-        return this;
     }
 
     public LoadMoreWrapper setLoadMoreView(View loadMoreView) {
