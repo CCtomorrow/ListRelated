@@ -19,5 +19,4 @@ public interface IFragmentVisibleCallbak {
      * 可以加载数据，Fragment可见，并且onCreateView已经调用
      */
     void onLoadedData();
-
 }

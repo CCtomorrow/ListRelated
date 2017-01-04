@@ -14,7 +14,7 @@ import com.orhanobut.logger.Logger;
  */
 public abstract class LifecycleFragment extends Fragment {
 
-    private void logLifeCycle(String msg) {
+    protected void logLifeCycle(String msg) {
         Logger.t("Lifecycle").i(msg);
     }
 
@@ -89,5 +89,4 @@ public abstract class LifecycleFragment extends Fragment {
         super.onDetach();
         logLifeCycle("onDetach");
     }
-
 }

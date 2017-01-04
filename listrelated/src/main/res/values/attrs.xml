@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="OppositeLayout">
+        <attr name="layout_horizontal_center" format="reference"/>
+        <attr name="layout_relative_top" format="float"/>
+        <attr name="layout_relative_bottom" format="float"/>
+        <attr name="layout_relative_left" format="float"/>
+        <attr name="layout_relative_height" format="float">
+            <enum name="relative_wrap_content" value="-1"/>
+        </attr>
+        <attr name="layout_relative_width" format="float">
+            <enum name="relative_wrap_content" value="-1"/>
+        </attr>
+    </declare-styleable>
+
+</resources>
