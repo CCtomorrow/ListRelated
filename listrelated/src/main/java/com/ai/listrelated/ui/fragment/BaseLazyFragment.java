@@ -5,6 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ai.listrelated.ui.fragment.iface.IFragmentInflate;
+import com.ai.listrelated.ui.fragment.iface.IFragmentVisibleCallbak;
+
 /**
  * <b>Project:</b> ListRelated <br>
  * <b>Create Date:</b> 2017/1/4 <br>

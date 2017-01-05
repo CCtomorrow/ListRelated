@@ -1,4 +1,4 @@
-package com.ai.listrelated.ui.fragment;
+package com.ai.listrelated.ui.fragment.iface;
 
 /**
  * Fragment状态监听

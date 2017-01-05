@@ -1,4 +1,4 @@
-package com.ai.listrelated.ui.fragment;
+package com.ai.listrelated.ui.fragment.iface;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
