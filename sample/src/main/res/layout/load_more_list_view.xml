@@ -10,4 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <com.ai.listrelated.sample.loadmore.LoadStateView
+        android:id="@+id/load_more_load_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </com.ai.listrelated.loadmore.LoadMoreListViewContainer>

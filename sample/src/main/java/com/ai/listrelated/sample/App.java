@@ -2,6 +2,7 @@ package com.ai.listrelated.sample;
 
 import android.app.Application;
 
+import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -16,6 +17,6 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Logger.init("ListRelated");
+        Logger.init("ListRelated").logLevel(LogLevel.FULL);
     }
 }
