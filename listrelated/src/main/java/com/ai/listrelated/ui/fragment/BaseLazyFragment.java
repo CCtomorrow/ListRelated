@@ -48,12 +48,12 @@ public abstract class BaseLazyFragment extends BaseFragment
 
     @Override
     public void onFragmentVisible() {
-
+        logLifeCycle("onFragmentVisible");
     }
 
     @Override
     public void onFragmentInvisible() {
-
+        logLifeCycle("onFragmentInvisible");
     }
 
     @Override

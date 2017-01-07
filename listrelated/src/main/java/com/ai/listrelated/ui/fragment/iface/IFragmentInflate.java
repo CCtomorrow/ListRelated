@@ -29,9 +29,9 @@ public interface IFragmentInflate {
     /**
      * 根据提供的根视图，找到当前页面需要使用的一些视图控件
      *
-     * @param mRootView 提供给子类查找视图控件所用
+     * @param rootview 提供给子类查找视图控件所用
      */
-    void onFindViews(View mRootView);
+    void onFindViews(View rootview);
 
     /**
      * 将数据与视图控件进行绑定，以显示内容

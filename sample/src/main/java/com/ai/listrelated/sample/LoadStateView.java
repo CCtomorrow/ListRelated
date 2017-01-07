@@ -1,4 +1,4 @@
-package com.ai.listrelated.sample.loadmore;
+package com.ai.listrelated.sample;
 
 import android.content.Context;
 import android.support.annotation.IntDef;
@@ -56,7 +56,7 @@ public class LoadStateView extends LinearLayout {
         mTextView = (TextView) findViewById(R.id.load_state_tv);
         mProgressBar = (ProgressBar) findViewById(R.id.load_state_pb);
         // 默认就是正在加载
-        setType(LOAD_LOADING);
+        // setType(LOAD_LOADING);
     }
 
     public void setType(@LOAD_STATE_TYPE int type) {
