@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ReplyBean {
 
-    public static final int TOTAL_PAGE = 5;
+    public static final int TOTAL_PAGE = 3;
 
     private String content;
     private int imageid;
@@ -58,8 +58,9 @@ public class ReplyBean {
                 final List<ReplyBean> data = new ArrayList<>();
                 for (int i = 1; i <= 20; i++) {
                     ReplyBean replyBean = new ReplyBean();
-                    replyBean.setContent("<=====>数据+" + ((page - 1) * 10 + i) + "<=====>");
+                    replyBean.setContent("<=====>数据+" + ((page - 1) * 20 + i) + "<=====>");
                     replyBean.setImageid(R.drawable.ic_beauty);
+                    data.add(replyBean);
                 }
                 handler.post(new Runnable() {
                     @Override

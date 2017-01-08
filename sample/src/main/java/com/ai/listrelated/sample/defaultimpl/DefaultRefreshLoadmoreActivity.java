@@ -2,6 +2,7 @@ package com.ai.listrelated.sample.defaultimpl;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.ai.listrelated.sample.R;
 
@@ -14,11 +15,17 @@ import com.ai.listrelated.sample.R;
  */
 public class DefaultRefreshLoadmoreActivity extends AppCompatActivity {
 
+    private Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_base_layout);
-        ListViewFragment fragment = ListViewFragment.getInstance(null);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        mToolbar.setTitle("默认的实现");
+//        ListViewFragment fragment = ListViewFragment.getInstance(null);
+        GridViewFragment fragment = GridViewFragment.getInstance(null);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
     }
 

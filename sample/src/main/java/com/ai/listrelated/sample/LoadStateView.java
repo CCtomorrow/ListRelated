@@ -54,7 +54,7 @@ public class LoadStateView extends LinearLayout {
         mTextView = (TextView) findViewById(R.id.load_state_tv);
         mProgressBar = (ProgressBar) findViewById(R.id.load_state_pb);
         // 默认就是正在加载
-        // setType(LOAD_LOADING);
+        setType(LOAD_SUCCESS);
     }
 
     public void setType(@LOAD_STATE_TYPE int type) {

@@ -1,22 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ai.listrelated.loadmore.LoadMoreGridViewContainer
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/load_more_grid_view_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.ai.listrelated.view.GridViewWithHeaderAndFooter
-        android:id="@+id/load_more_grid_view"
+    <com.ai.listrelated.refresh.RefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fadingEdge="none"
-        android:focusable="false"
-        android:horizontalSpacing="10dp"
-        android:listSelector="@android:color/transparent"
-        android:numColumns="2"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:scrollbarStyle="outsideOverlay"
-        android:stretchMode="columnWidth"/>
+        android:layout_height="match_parent">
 
-</com.ai.listrelated.loadmore.LoadMoreGridViewContainer>
+        <com.ai.listrelated.loadmore.LoadMoreGridViewContainer
+            android:id="@+id/load_more_grid_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.ai.listrelated.view.GridViewWithHeaderAndFooter
+                android:id="@+id/load_more_grid_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:fadingEdge="none"
+                android:focusable="false"
+                android:horizontalSpacing="10dp"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="2"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10dp"/>
+
+            <include layout="@layout/load_state_view"/>
+
+        </com.ai.listrelated.loadmore.LoadMoreGridViewContainer>
+
+    </com.ai.listrelated.refresh.RefreshLayout>
+
+</FrameLayout>

@@ -8,6 +8,8 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <include layout="@layout/toolbar_layout"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

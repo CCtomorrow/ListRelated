@@ -11,11 +11,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.ai.listrelated.adapter.abslistview.CommonAdapter;
 import com.ai.listrelated.adapter.abslistview.ViewHolder;
-import com.ai.listrelated.loadmore.LoadMoreAbsListViewContainer;
+import com.ai.listrelated.loadmore.LoadMoreGridViewContainer;
 import com.ai.listrelated.loadmore.iface.LoadMoreContainer;
 import com.ai.listrelated.loadmore.iface.LoadMoreHandler;
 import com.ai.listrelated.refresh.RefreshDefaultHandler;
@@ -24,6 +23,7 @@ import com.ai.listrelated.sample.LoadStateView;
 import com.ai.listrelated.sample.R;
 import com.ai.listrelated.sample.ReplyBean;
 import com.ai.listrelated.ui.fragment.BaseLazyFragment;
+import com.ai.listrelated.view.GridViewWithHeaderAndFooter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +33,13 @@ import java.util.List;
  * <b>Create Date:</b> 2017/1/8 <br>
  * <b>Author:</b> qy <br>
  * <b>Address:</b> qingyongai@gmail.com <br>
- * <b>Description:</b> ListViewFragment <br>
+ * <b>Description:</b> GridViewFragment <br>
  */
-public class ListViewFragment extends BaseLazyFragment implements SwipeRefreshLayout.OnRefreshListener, LoadMoreHandler {
+public class GridViewFragment extends BaseLazyFragment implements SwipeRefreshLayout.OnRefreshListener, LoadMoreHandler {
 
     private RefreshLayout mRefreshLayout;
-    private LoadMoreAbsListViewContainer mListViewContainer;
-    private ListView mListView;
+    private LoadMoreGridViewContainer mLoadMoreGridViewContainer;
+    private GridViewWithHeaderAndFooter mGridView;
     private LoadStateView mStateView;
 
     public static final int FIRST_PAGE_NUM = 1;
@@ -55,8 +55,8 @@ public class ListViewFragment extends BaseLazyFragment implements SwipeRefreshLa
      */
     private int tryCount = 0;
 
-    public static ListViewFragment getInstance(Bundle data) {
-        ListViewFragment fragment = new ListViewFragment();
+    public static GridViewFragment getInstance(Bundle data) {
+        GridViewFragment fragment = new GridViewFragment();
         if (data != null) {
             fragment.setArguments(data);
         }
@@ -66,14 +66,14 @@ public class ListViewFragment extends BaseLazyFragment implements SwipeRefreshLa
     @NonNull
     @Override
     public View onInflaterRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.load_more_list_view, container, false);
+        return inflater.inflate(R.layout.load_more_grid_view, container, false);
     }
 
     @Override
     public void onFindViews(View rootview) {
         mRefreshLayout = (RefreshLayout) rootview.findViewById(R.id.refresh_layout);
-        mListViewContainer = (LoadMoreAbsListViewContainer) rootview.findViewById(R.id.load_more_list_view_container);
-        mListView = (ListView) rootview.findViewById(R.id.load_more_list_view);
+        mLoadMoreGridViewContainer = (LoadMoreGridViewContainer) rootview.findViewById(R.id.load_more_grid_view_container);
+        mGridView = (GridViewWithHeaderAndFooter) rootview.findViewById(R.id.load_more_grid_view);
         mStateView = (LoadStateView) rootview.findViewById(R.id.load_more_state_view);
 
         // 这些配置直接拷贝过去用即可
@@ -81,12 +81,12 @@ public class ListViewFragment extends BaseLazyFragment implements SwipeRefreshLa
         mRefreshLayout.setColorSchemeResources(
                 R.color.red_first, R.color.red_second,
                 R.color.red_third, R.color.fourth);
-        mRefreshLayout.setRefreshHandler(new RefreshDefaultHandler(), mListView);
+        mRefreshLayout.setRefreshHandler(new RefreshDefaultHandler(), mGridView);
 
         // 这些配置直接拷贝去用即可
-        mListViewContainer.setAutoLoadMore(true);
-        mListViewContainer.useDefaultFooter();
-        mListViewContainer.setLoadMoreHandler(this);
+        mLoadMoreGridViewContainer.setAutoLoadMore(true);
+        mLoadMoreGridViewContainer.useDefaultFooter();
+        mLoadMoreGridViewContainer.setLoadMoreHandler(this);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class ListViewFragment extends BaseLazyFragment implements SwipeRefreshLa
                 viewHolder.setImageResource(R.id.image, item.getImageid());
             }
         };
-        mListView.setAdapter(mAdapter);
+        mGridView.setAdapter(mAdapter);
         mStateView.setType(LoadStateView.LOAD_EMPTY);
         reqFirstPageData();
     }
@@ -141,7 +141,7 @@ public class ListViewFragment extends BaseLazyFragment implements SwipeRefreshLa
                                 tryCount++;
                                 if (tryCount < 3) {
                                     mCurrentPage--;
-                                    mListViewContainer.loadMoreError();
+                                    mLoadMoreGridViewContainer.loadMoreError();
                                     return;
                                 } else {
                                     tryCount = 0;
@@ -156,7 +156,7 @@ public class ListViewFragment extends BaseLazyFragment implements SwipeRefreshLa
                         }
                         // 设置状态
                         mStateView.setType(LoadStateView.LOAD_SUCCESS);
-                        mListViewContainer.loadMoreFinish(mTotalPage > mCurrentPage);
+                        mLoadMoreGridViewContainer.loadMoreFinish(mTotalPage > mCurrentPage);
                     }
 
                     @Override

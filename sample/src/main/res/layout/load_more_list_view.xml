@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.ai.listrelated.refresh.RefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,18 +18,16 @@
                 android:id="@+id/load_more_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
                 android:cacheColorHint="@android:color/transparent"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="10dp"
                 android:scrollbars="none"/>
 
-            <com.ai.listrelated.sample.LoadStateView
-                android:id="@+id/load_more_state_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+            <include layout="@layout/load_state_view"/>
 
         </com.ai.listrelated.loadmore.LoadMoreListViewContainer>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.ai.listrelated.refresh.RefreshLayout>
 
-</LinearLayout>
+</FrameLayout>
