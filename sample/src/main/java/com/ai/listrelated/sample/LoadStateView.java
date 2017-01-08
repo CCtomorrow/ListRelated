@@ -8,8 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.ai.listrelated.sample.R;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -38,11 +36,11 @@ public class LoadStateView extends LinearLayout {
     }
 
     public LoadStateView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public LoadStateView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public LoadStateView(Context context, AttributeSet attrs, int defStyleAttr) {

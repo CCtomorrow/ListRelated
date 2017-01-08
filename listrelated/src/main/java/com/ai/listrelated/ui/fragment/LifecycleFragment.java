@@ -1,13 +1,13 @@
 package com.ai.listrelated.ui.fragment;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.orhanobut.logger.Logger;
+import com.socks.library.KLog;
 
 /**
  * 一个只打印Fragment生命周期的Fragment，以方便随时不用
@@ -15,7 +15,8 @@ import com.orhanobut.logger.Logger;
 public abstract class LifecycleFragment extends Fragment {
 
     protected void logLifeCycle(String msg) {
-        Logger.t("Lifecycle").i(msg);
+        // Logger.t("Lifecycle").i(msg);
+        KLog.i("Lifecycle", msg);
     }
 
     @Override

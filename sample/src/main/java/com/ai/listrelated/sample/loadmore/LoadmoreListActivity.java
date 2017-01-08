@@ -1,9 +1,9 @@
 package com.ai.listrelated.sample.loadmore;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -22,7 +22,7 @@ import java.util.List;
  * <b>Address:</b> qingyongai@gmail.com <br>
  * <b>Description:</b> 加载更多ListView测试 <br>
  */
-public class LoadmoreListActivity extends Activity {
+public class LoadmoreListActivity extends AppCompatActivity {
 
     private ListView mListView;
     private LoadMoreListViewContainer mLoadWrap;

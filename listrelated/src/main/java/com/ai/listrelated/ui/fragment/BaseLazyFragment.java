@@ -20,7 +20,8 @@ public abstract class BaseLazyFragment extends BaseFragment
         implements IFragmentVisibleCallbak, IFragmentInflate {
 
     //分别表示当前Fragment是否可见,是否已准备(表示已经走过onCreateView方法)以及是否数据已加载
-    protected boolean isVisible = false;
+    //这里需要设置为true，因为在不使用ViewPager的情况下，会出问题，其次setUserVisibleHint的调用比onViewCreated早
+    protected boolean isVisible = true;
     protected boolean isPrepared = false;
     protected boolean isLoaded = false;
 

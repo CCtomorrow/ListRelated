@@ -1,9 +1,9 @@
 package com.ai.listrelated.sample.loadmore;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 
 import com.ai.listrelated.loadmore.LoadMoreGridViewContainer;
@@ -22,7 +22,7 @@ import java.util.List;
  * <b>Address:</b> qingyongai@gmail.com <br>
  * <b>Description:</b> 加载更多GridView测试 <br>
  */
-public class LoadmoreGridActivity extends Activity {
+public class LoadmoreGridActivity extends AppCompatActivity {
 
     private GridViewWithHeaderAndFooter mGridView;
     private LoadMoreGridViewContainer mLoadWrap;
