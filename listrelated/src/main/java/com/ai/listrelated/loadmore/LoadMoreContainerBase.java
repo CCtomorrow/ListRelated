@@ -25,6 +25,7 @@ public abstract class LoadMoreContainerBase extends FrameLayout implements LoadM
     private boolean mLoadError = false;
     private boolean mIsLoading = false;
     private boolean mAutoLoadMore = false;
+    private boolean mAllLoadFinishView = true;
 
     private View mFooterView;
 
@@ -133,6 +134,10 @@ public abstract class LoadMoreContainerBase extends FrameLayout implements LoadM
         mLoadError = false;
         mIsLoading = false;
         mHasMore = hasMore;
+        if (!mHasMore && !mAllLoadFinishView) {
+            removeFooterView(mFooterView);
+            return;
+        }
         if (mLoadMoreUIHandler != null) {
             mLoadMoreUIHandler.onLoadFinish(this, hasMore);
         }
@@ -145,6 +150,11 @@ public abstract class LoadMoreContainerBase extends FrameLayout implements LoadM
         if (mLoadMoreUIHandler != null) {
             mLoadMoreUIHandler.onLoadError(this);
         }
+    }
+
+    @Override
+    public void showLoadAllFinishView(boolean show) {
+        mAllLoadFinishView = show;
     }
 
     protected abstract void addFooterView(View view);

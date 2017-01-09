@@ -31,4 +31,8 @@
         android:text="加载更多GridView"
         android:textAllCaps="false"/>
 
+    <com.ai.listrelated.loadmore.LoadMoreDefaultFooterView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

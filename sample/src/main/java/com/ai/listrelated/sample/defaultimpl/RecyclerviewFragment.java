@@ -51,7 +51,6 @@ public class RecyclerviewFragment extends BaseLazyFragment implements SwipeRefre
     private List<ReplyBean> mDatas = new ArrayList<>();
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
-    private CommonAdapter<ReplyBean> mAdapter;
     private LoadMoreWrapper mLoadMoreWrapper;
 
     /**
@@ -87,28 +86,47 @@ public class RecyclerviewFragment extends BaseLazyFragment implements SwipeRefre
                 R.color.red_third, R.color.fourth);
         mRefreshLayout.setRefreshHandler(new RefreshDefaultHandler(), mRecyclerView);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
-                DividerItemDecoration.VERTICAL_LIST));
+        // 这些配置直接拷贝去用即可
+        mRecyclerViewContainer.setAutoLoadMore(true);
+        mRecyclerViewContainer.setLoadMoreHandler(this);
+        mRecyclerViewContainer.showLoadAllFinishView(false);
+
+//        final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+//        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//            @Override
+//            public int getSpanSize(int position) {
+//                if (position == 0) {
+//                    return layoutManager.getSpanCount();
+//                } else {
+//                    return 1;
+//                }
+//            }
+//        });
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(layoutManager);
+//        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
+//                DividerItemDecoration.VERTICAL_LIST));
     }
 
     @Override
     public void onBindContent() {
-        mAdapter = new CommonAdapter<ReplyBean>(getActivity(), R.layout.item_layout, mDatas) {
+        CommonAdapter<ReplyBean> adapter = new CommonAdapter<ReplyBean>(getActivity(),
+                R.layout.item_layout, mDatas) {
             @Override
             protected void convert(ViewHolder holder, ReplyBean replyBean, int position) {
                 holder.setText(R.id.text, replyBean.getContent());
                 holder.setImageResource(R.id.image, replyBean.getImageid());
             }
         };
-        mLoadMoreWrapper = new LoadMoreWrapper(mAdapter);
-
-        // 这些配置直接拷贝去用即可
-        mRecyclerViewContainer.setAutoLoadMore(true);
-        mRecyclerViewContainer.useDefaultFooter();
-        mRecyclerViewContainer.setLoadMoreHandler(this);
+        mLoadMoreWrapper = new LoadMoreWrapper(adapter);
 
         mRecyclerView.setAdapter(mLoadMoreWrapper);
+
+        // 必须这设置这个之后设置加载更多的布局View
+        mRecyclerViewContainer.setRecyclerViewAdapter(mLoadMoreWrapper);
+        // 添加加载更多View利用的是adapter，所以必须先给mRecyclerViewContainer设置好adapter
+        mRecyclerViewContainer.useDefaultFooter();
+
         mStateView.setType(LoadStateView.LOAD_EMPTY);
         reqFirstPageData();
     }
@@ -158,11 +176,11 @@ public class RecyclerviewFragment extends BaseLazyFragment implements SwipeRefre
                                 }
                             }
                             mDatas.addAll(data);
-                            mAdapter.notifyDataSetChanged();
+                            mLoadMoreWrapper.notifyDataSetChanged();
                         } else {
                             mDatas.clear();
                             mDatas.addAll(data);
-                            mAdapter.notifyDataSetChanged();
+                            mLoadMoreWrapper.notifyDataSetChanged();
                         }
                         // 设置状态
                         mStateView.setType(LoadStateView.LOAD_SUCCESS);

@@ -55,4 +55,11 @@ public interface LoadMoreContainer {
      * 加载更多出错
      */
     void loadMoreError();
+
+    /**
+     * 是否展示所有的数据都加载完成了之后的，展示的没有更多数据的View
+     *
+     * @param show
+     */
+    void showLoadAllFinishView(boolean show);
 }
