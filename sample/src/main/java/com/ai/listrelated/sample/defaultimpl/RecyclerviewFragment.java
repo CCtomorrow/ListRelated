@@ -5,17 +5,19 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
-import com.ai.listrelated.adapter.abslistview.CommonAdapter;
-import com.ai.listrelated.adapter.abslistview.ViewHolder;
-import com.ai.listrelated.loadmore.LoadMoreListViewContainer;
+import com.ai.listrelated.adapter.recyclerview.CommonAdapter;
+import com.ai.listrelated.adapter.recyclerview.base.ViewHolder;
+import com.ai.listrelated.adapter.recyclerview.wrapper.LoadMoreWrapper;
+import com.ai.listrelated.loadmore.LoadMoreRecyclerViewContainer;
 import com.ai.listrelated.loadmore.iface.LoadMoreContainer;
 import com.ai.listrelated.loadmore.iface.LoadMoreHandler;
 import com.ai.listrelated.refresh.RefreshDefaultHandler;
@@ -35,11 +37,11 @@ import java.util.List;
  * <b>Address:</b> qingyongai@gmail.com <br>
  * <b>Description:</b> ListViewFragment <br>
  */
-public class ListViewFragment extends BaseLazyFragment implements SwipeRefreshLayout.OnRefreshListener, LoadMoreHandler {
+public class RecyclerviewFragment extends BaseLazyFragment implements SwipeRefreshLayout.OnRefreshListener, LoadMoreHandler {
 
     private RefreshLayout mRefreshLayout;
-    private LoadMoreListViewContainer mListViewContainer;
-    private ListView mListView;
+    private LoadMoreRecyclerViewContainer mRecyclerViewContainer;
+    private RecyclerView mRecyclerView;
     private LoadStateView mStateView;
 
     public static final int FIRST_PAGE_NUM = 1;
@@ -47,16 +49,18 @@ public class ListViewFragment extends BaseLazyFragment implements SwipeRefreshLa
     private volatile int mTotalPage = ReplyBean.TOTAL_PAGE;
 
     private List<ReplyBean> mDatas = new ArrayList<>();
-    private CommonAdapter<ReplyBean> mAdapter;
     private Handler mHandler = new Handler(Looper.getMainLooper());
+
+    private CommonAdapter<ReplyBean> mAdapter;
+    private LoadMoreWrapper mLoadMoreWrapper;
 
     /**
      * 测试加载失败使用的
      */
     private int tryCount = 0;
 
-    public static ListViewFragment getInstance(Bundle data) {
-        ListViewFragment fragment = new ListViewFragment();
+    public static RecyclerviewFragment getInstance(Bundle data) {
+        RecyclerviewFragment fragment = new RecyclerviewFragment();
         if (data != null) {
             fragment.setArguments(data);
         }
@@ -66,14 +70,14 @@ public class ListViewFragment extends BaseLazyFragment implements SwipeRefreshLa
     @NonNull
     @Override
     public View onInflaterRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.load_more_list_view, container, false);
+        return inflater.inflate(R.layout.load_more_recycler_view, container, false);
     }
 
     @Override
     public void onFindViews(View rootview) {
         mRefreshLayout = (RefreshLayout) rootview.findViewById(R.id.refresh_layout);
-        mListViewContainer = (LoadMoreListViewContainer) rootview.findViewById(R.id.load_more_list_view_container);
-        mListView = (ListView) rootview.findViewById(R.id.load_more_list_view);
+        mRecyclerViewContainer = (LoadMoreRecyclerViewContainer) rootview.findViewById(R.id.load_more_recycler_view_container);
+        mRecyclerView = (RecyclerView) rootview.findViewById(R.id.load_more_recycler_view);
         mStateView = (LoadStateView) rootview.findViewById(R.id.load_more_state_view);
 
         // 这些配置直接拷贝过去用即可
@@ -81,24 +85,30 @@ public class ListViewFragment extends BaseLazyFragment implements SwipeRefreshLa
         mRefreshLayout.setColorSchemeResources(
                 R.color.red_first, R.color.red_second,
                 R.color.red_third, R.color.fourth);
-        mRefreshLayout.setRefreshHandler(new RefreshDefaultHandler(), mListView);
+        mRefreshLayout.setRefreshHandler(new RefreshDefaultHandler(), mRecyclerView);
 
-        // 这些配置直接拷贝去用即可
-        mListViewContainer.setAutoLoadMore(true);
-        mListViewContainer.useDefaultFooter();
-        mListViewContainer.setLoadMoreHandler(this);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
+                DividerItemDecoration.VERTICAL_LIST));
     }
 
     @Override
     public void onBindContent() {
         mAdapter = new CommonAdapter<ReplyBean>(getActivity(), R.layout.item_layout, mDatas) {
             @Override
-            protected void convert(ViewHolder viewHolder, ReplyBean item, int position) {
-                viewHolder.setText(R.id.text, item.getContent());
-                viewHolder.setImageResource(R.id.image, item.getImageid());
+            protected void convert(ViewHolder holder, ReplyBean replyBean, int position) {
+                holder.setText(R.id.text, replyBean.getContent());
+                holder.setImageResource(R.id.image, replyBean.getImageid());
             }
         };
-        mListView.setAdapter(mAdapter);
+        mLoadMoreWrapper = new LoadMoreWrapper(mAdapter);
+
+        // 这些配置直接拷贝去用即可
+        mRecyclerViewContainer.setAutoLoadMore(true);
+        mRecyclerViewContainer.useDefaultFooter();
+        mRecyclerViewContainer.setLoadMoreHandler(this);
+
+        mRecyclerView.setAdapter(mLoadMoreWrapper);
         mStateView.setType(LoadStateView.LOAD_EMPTY);
         reqFirstPageData();
     }
@@ -141,7 +151,7 @@ public class ListViewFragment extends BaseLazyFragment implements SwipeRefreshLa
                                 tryCount++;
                                 if (tryCount < 3) {
                                     mCurrentPage--;
-                                    mListViewContainer.loadMoreError();
+                                    mRecyclerViewContainer.loadMoreError();
                                     return;
                                 } else {
                                     tryCount = 0;
@@ -156,7 +166,7 @@ public class ListViewFragment extends BaseLazyFragment implements SwipeRefreshLa
                         }
                         // 设置状态
                         mStateView.setType(LoadStateView.LOAD_SUCCESS);
-                        mListViewContainer.loadMoreFinish(mTotalPage > mCurrentPage);
+                        mRecyclerViewContainer.loadMoreFinish(mTotalPage > mCurrentPage);
                     }
 
                     @Override

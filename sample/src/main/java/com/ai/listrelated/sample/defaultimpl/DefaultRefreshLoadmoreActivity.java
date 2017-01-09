@@ -25,7 +25,8 @@ public class DefaultRefreshLoadmoreActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         mToolbar.setTitle("默认的实现");
 //        ListViewFragment fragment = ListViewFragment.getInstance(null);
-        GridViewFragment fragment = GridViewFragment.getInstance(null);
+//        GridViewFragment fragment = GridViewFragment.getInstance(null);
+        RecyclerviewFragment fragment = RecyclerviewFragment.getInstance(null);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
     }
 
