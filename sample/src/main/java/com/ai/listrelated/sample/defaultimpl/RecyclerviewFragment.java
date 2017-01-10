@@ -176,7 +176,8 @@ public class RecyclerviewFragment extends BaseLazyFragment implements SwipeRefre
                                 }
                             }
                             mDatas.addAll(data);
-                            mLoadMoreWrapper.notifyDataSetChanged();
+                            // mLoadMoreWrapper.notifyDataSetChanged();
+                            mLoadMoreWrapper.notifyItemRangeInserted(mLoadMoreWrapper.getRealItemCount(), data.size());
                         } else {
                             mDatas.clear();
                             mDatas.addAll(data);

@@ -99,6 +99,15 @@ public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
         return mInnerAdapter.getItemCount() + (hasLoadMore() ? 1 : 0);
     }
 
+    /**
+     * 获取真实的item的数据条数
+     *
+     * @return 不包含Header和Footer的item的数据条数
+     */
+    public int getRealItemCount() {
+        return mInnerAdapter.getItemCount();
+    }
+
     public LoadMoreWrapper setLoadMoreView(View loadMoreView) {
         mLoadMoreView = loadMoreView;
         return this;
