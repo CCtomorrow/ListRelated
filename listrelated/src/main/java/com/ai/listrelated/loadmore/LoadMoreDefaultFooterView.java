@@ -15,8 +15,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * 默认加载更多的时候展示的View，也可以自定义使用一套，具体的每个方法说明很清楚了
- * 这里需要说明的是需要使用RelativeLayout，不然测量会出问题
+ * <b>Project:</b> ListRelated <br>
+ * <b>Create Date:</b> 2017/1/10 <br>
+ * <b>Author:</b> qy <br>
+ * <b>Address:</b> qingyongai@gmail.com <br>
+ * <b>Description:</b> 默认加载更多的时候展示的View，也可以自定义使用一套，具体的每个方法说明很清楚了 <br>
+ * 注意:这里由于RecyclerView的测量原因，使用别的布局会出问题
  */
 public class LoadMoreDefaultFooterView extends RelativeLayout implements LoadMoreUIHandler {
 

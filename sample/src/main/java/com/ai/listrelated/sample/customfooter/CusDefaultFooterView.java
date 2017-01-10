@@ -56,6 +56,7 @@ public class CusDefaultFooterView extends RelativeLayout implements LoadMoreUIHa
 
     @Override
     public void onLoadError(LoadMoreContainer container) {
+        setVisibility(VISIBLE);
         mTextView.setText("加载失败,点击重试");
     }
 

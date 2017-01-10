@@ -10,7 +10,11 @@ import android.view.ViewGroup;
 import com.socks.library.KLog;
 
 /**
- * 一个只打印Fragment生命周期的Fragment，以方便随时不用
+ * <b>Project:</b> ListRelated <br>
+ * <b>Create Date:</b> 2017/1/10 <br>
+ * <b>Author:</b> qy <br>
+ * <b>Address:</b> qingyongai@gmail.com <br>
+ * <b>Description:</b> 一个只打印Fragment生命周期的Fragment，以方便随时不用 <br>
  */
 public abstract class LifecycleFragment extends Fragment {
 
