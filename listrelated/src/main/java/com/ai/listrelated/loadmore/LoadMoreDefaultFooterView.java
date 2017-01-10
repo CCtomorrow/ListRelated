@@ -5,7 +5,7 @@ import android.support.annotation.IntDef;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.ai.listrelated.R;
 import com.ai.listrelated.loadmore.iface.LoadMoreContainer;
@@ -16,8 +16,9 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * 默认加载更多的时候展示的View，也可以自定义使用一套，具体的每个方法说明很清楚了
+ * 这里需要说明的是需要使用RelativeLayout，不然测量会出问题
  */
-public class LoadMoreDefaultFooterView extends FrameLayout implements LoadMoreUIHandler {
+public class LoadMoreDefaultFooterView extends RelativeLayout implements LoadMoreUIHandler {
 
     public static final int LOAD_WAIT = 1;
     public static final int LOAD_LOADING = 2;
