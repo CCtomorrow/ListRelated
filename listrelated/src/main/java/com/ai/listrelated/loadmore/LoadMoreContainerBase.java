@@ -134,7 +134,7 @@ public abstract class LoadMoreContainerBase extends FrameLayout implements LoadM
         mLoadError = false;
         mIsLoading = false;
         mHasMore = hasMore;
-        if (!mHasMore && !mAllLoadFinishView) {
+        if (!mHasMore && !mAllLoadFinishView && mFooterView != null) {
             removeFooterView(mFooterView);
             return;
         }
