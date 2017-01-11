@@ -10,6 +10,13 @@ import com.ai.listrelated.loadmore.iface.LoadMoreContainer;
 import com.ai.listrelated.loadmore.iface.LoadMoreUIHandler;
 import com.ai.listrelated.sample.R;
 
+/**
+ * <b>Project:</b> ListRelated <br>
+ * <b>Create Date:</b> 2017/1/8 <br>
+ * <b>Author:</b> qy <br>
+ * <b>Address:</b> qingyongai@gmail.com <br>
+ * <b>Description:</b> 自定义加载更多界面，记得继承RelativeLayout，由于RecyclerView的测量问题 <br>
+ */
 public class CusDefaultFooterView extends RelativeLayout implements LoadMoreUIHandler {
 
     private TextView mTextView;

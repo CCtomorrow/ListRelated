@@ -7,8 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.ai.listrelated.sample.defaultimpl.DefaultRefreshLoadmoreActivity;
-import com.ai.listrelated.sample.loadmore.LoadmoreGridActivity;
-import com.ai.listrelated.sample.loadmore.LoadmoreListActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,14 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void defaultImpl(View view) {
         startActivity(new Intent(this, DefaultRefreshLoadmoreActivity.class));
-    }
-
-    public void loadmoreListView(View view) {
-        startActivity(new Intent(this, LoadmoreListActivity.class));
-    }
-
-    public void loadmoreGridView(View view) {
-        startActivity(new Intent(this, LoadmoreGridActivity.class));
     }
 
 }

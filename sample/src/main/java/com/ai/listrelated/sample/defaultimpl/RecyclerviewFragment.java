@@ -5,7 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -89,21 +89,24 @@ public class RecyclerviewFragment extends BaseLazyFragment implements SwipeRefre
         // 这些配置直接拷贝去用即可
         mRecyclerViewContainer.setAutoLoadMore(true);
         mRecyclerViewContainer.setLoadMoreHandler(this);
-        mRecyclerViewContainer.showLoadAllFinishView(false);
+        // mRecyclerViewContainer.showLoadAllFinishView(true);
 
-//        final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
-//        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//            @Override
-//            public int getSpanSize(int position) {
-//                if (position == 0) {
-//                    return layoutManager.getSpanCount();
-//                } else {
-//                    return 1;
-//                }
-//            }
-//        });
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position == 0) {
+                    return layoutManager.getSpanCount();
+                } else {
+                    return 1;
+                }
+            }
+        });
         mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.addItemDecoration(new GridItemDecoration(15, layoutManager.getSpanSizeLookup()));
+
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+//        mRecyclerView.setLayoutManager(linearLayoutManager);
 //        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
 //                DividerItemDecoration.VERTICAL_LIST));
     }

@@ -14,11 +14,13 @@ public class TabInFo {
     private final String tag; // tag
     private final Class<?> clss; // 类
     private final Bundle args; // 参数
+    private final String title; // 标题
 
-    public TabInFo(String _tag, Class<?> _class, Bundle _args) {
+    public TabInFo(String _tag, Class<?> _class, Bundle _args, String _title) {
         tag = _tag;
         clss = _class;
         args = _args;
+        title = _title;
     }
 
     public String getTag() {
@@ -31,6 +33,10 @@ public class TabInFo {
 
     public Bundle getArgs() {
         return args;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
 }

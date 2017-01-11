@@ -27,4 +27,7 @@ dependencies {
     // optional
     // pull refresh
     compile 'in.srain.cube:ultra-ptr:1.0.11@aar'
+
+    compile 'com.android.support:design:25.1.0@aar'
+    compile 'com.android.support:transition:25.1.0@aar'
 }

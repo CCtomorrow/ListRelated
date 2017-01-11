@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
+import android.util.SparseArray;
 
 import com.ai.listrelated.adapter.fragment.TabInFo;
 
@@ -21,6 +22,7 @@ public class BaseFragmentAdapter extends FragmentPagerAdapter {
 
     protected Context mContext;
     protected ArrayList<TabInFo> mTabInFos;
+    protected SparseArray<Fragment> mFragments;
     protected FragmentManager mFragmentManager;
 
     public BaseFragmentAdapter(FragmentManager fm, Context context) {
@@ -42,13 +44,22 @@ public class BaseFragmentAdapter extends FragmentPagerAdapter {
 
     /**
      * 添加一个Fragment
-     *
-     * @param tag  tag，名称
-     * @param clss 类
-     * @param args 参数
      */
-    public void addFragment(String tag, Class<?> clss, Bundle args) {
-        TabInFo info = new TabInFo(tag, clss, args);
+    public void addFragment(TabInFo info) {
+        mTabInFos.add(info);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 添加一个Fragment
+     *
+     * @param tag   tag，名称
+     * @param clss  类
+     * @param args  参数
+     * @param title 标题
+     */
+    public void addFragment(String tag, Class<?> clss, Bundle args, String title) {
+        TabInFo info = new TabInFo(tag, clss, args, title);
         mTabInFos.add(info);
         notifyDataSetChanged();
     }
@@ -72,12 +83,21 @@ public class BaseFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         TabInFo info = mTabInFos.get(position);
-        return Fragment.instantiate(mContext, info.getClss().getName(), info.getArgs());
+        Fragment fragment = mFragments.get(position);
+        if (fragment == null) {
+            fragment = Fragment.instantiate(mContext, info.getClss().getName(), info.getArgs());
+        }
+        return fragment;
     }
 
     @Override
     public int getCount() {
         return mTabInFos.size();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mTabInFos.get(position).getTitle();
     }
 
     /**

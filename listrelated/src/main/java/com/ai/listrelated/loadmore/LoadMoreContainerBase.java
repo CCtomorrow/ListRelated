@@ -104,10 +104,12 @@ public abstract class LoadMoreContainerBase extends FrameLayout implements LoadM
             mFooterView = view;
             return;
         }
-        // remove previous
-        if (mFooterView != null && mFooterView != view) {
-            removeFooterView(view);
-        }
+        // TODO: 2017/1/12 在最后的时候本来添加了可以移除所有数据加载完毕的item的，
+        // TODO: 但是这样下拉刷新之后需要再次添加，但是现在没有更好的时机来添加。
+//        // remove previous
+//        if (mFooterView != null && mFooterView != view) {
+//            removeFooterView(view);
+//        }
         // add current
         mFooterView = view;
         mFooterView.setOnClickListener(new OnClickListener() {
@@ -134,7 +136,7 @@ public abstract class LoadMoreContainerBase extends FrameLayout implements LoadM
         mLoadError = false;
         mIsLoading = false;
         mHasMore = hasMore;
-        if (!mHasMore && !mAllLoadFinishView && mFooterView != null) {
+        if (!mHasMore && !mAllLoadFinishView) {
             removeFooterView(mFooterView);
             return;
         }

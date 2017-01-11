@@ -17,22 +17,4 @@
         android:text="默认下拉刷新和加载更多"
         android:textAllCaps="false"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="loadmoreListView"
-        android:text="加载更多ListView"
-        android:textAllCaps="false"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="loadmoreGridView"
-        android:text="加载更多GridView"
-        android:textAllCaps="false"/>
-
-    <com.ai.listrelated.loadmore.LoadMoreDefaultFooterView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
 </LinearLayout>
