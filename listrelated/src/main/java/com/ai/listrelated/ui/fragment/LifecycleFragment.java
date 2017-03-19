@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.socks.library.KLog;
-
 /**
  * <b>Project:</b> ListRelated <br>
  * <b>Create Date:</b> 2017/1/10 <br>
@@ -20,7 +18,7 @@ public abstract class LifecycleFragment extends Fragment {
 
     protected void logLifeCycle(String msg) {
         // Logger.t("Lifecycle").i(msg);
-        KLog.i("Lifecycle", msg);
+        // KLog.i("Lifecycle", msg);
     }
 
     @Override

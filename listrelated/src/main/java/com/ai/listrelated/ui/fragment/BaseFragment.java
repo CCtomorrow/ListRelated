@@ -1,5 +1,7 @@
 package com.ai.listrelated.ui.fragment;
 
+import android.support.v4.app.Fragment;
+
 /**
  * <b>Project:</b> ListRelated <br>
  * <b>Create Date:</b> 2017/1/4 <br>
@@ -7,5 +9,5 @@ package com.ai.listrelated.ui.fragment;
  * <b>Address:</b> qingyongai@gmail.com <br>
  * <b>Description:</b> BaseFragment <br>
  */
-public class BaseFragment extends LifecycleFragment {
+public class BaseFragment extends Fragment {
 }

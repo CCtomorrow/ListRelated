@@ -29,7 +29,7 @@ public abstract class BaseLazyFragment extends BaseFragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        logLifeCycle("onCreateView");
+        // logLifeCycle("onCreateView");
         mView = onInflaterRootView(inflater, container, savedInstanceState);
         return mView;
     }
@@ -49,12 +49,12 @@ public abstract class BaseLazyFragment extends BaseFragment
 
     @Override
     public void onFragmentVisible() {
-        logLifeCycle("onFragmentVisible");
+        // logLifeCycle("onFragmentVisible");
     }
 
     @Override
     public void onFragmentInvisible() {
-        logLifeCycle("onFragmentInvisible");
+        // logLifeCycle("onFragmentInvisible");
     }
 
     @Override
