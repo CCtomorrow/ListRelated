@@ -17,4 +17,11 @@
         android:text="默认下拉刷新和加载更多"
         android:textAllCaps="false"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="goWebrowser"
+        android:text="去到浏览器"
+        android:textAllCaps="false"/>
+
 </LinearLayout>

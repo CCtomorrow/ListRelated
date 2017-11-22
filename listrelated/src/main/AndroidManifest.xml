@@ -1,8 +1,19 @@
 <manifest
-    package="com.ai.listrelated"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ai.listrelated">
 
     <application>
+        <!--FileProvider-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.image.chooser.file.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/image_chooser_file_paths"/>
+        </provider>
+
     </application>
 
 </manifest>

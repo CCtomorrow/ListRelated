@@ -3,4 +3,10 @@
     <string name="loading">正在加载，请稍后哒</string>
     <string name="load_failed">哎呀，加载失败了，请点我重试</string>
     <string name="load_end">没有更多数据啦</string>
+
+    <string name="image_chooser_title">选择图片</string>
+    <string-array name="image_chooser_item">
+        <item>拍照上传</item>
+        <item>图库上传</item>
+    </string-array>
 </resources>

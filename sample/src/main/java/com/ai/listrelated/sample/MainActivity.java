@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.ai.listrelated.sample.defaultimpl.DefaultRefreshLoadmoreActivity;
+import com.ai.listrelated.sample.defaultimpl.DefaultRefreshActivity;
+import com.ai.listrelated.sample.web.WebrowserActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +23,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void defaultImpl(View view) {
-        startActivity(new Intent(this, DefaultRefreshLoadmoreActivity.class));
+        startActivity(new Intent(this, DefaultRefreshActivity.class));
     }
 
+    public void goWebrowser(View view) {
+        startActivity(new Intent(this, WebrowserActivity.class));
+    }
 }
