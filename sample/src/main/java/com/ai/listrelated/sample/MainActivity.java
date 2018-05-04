@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.ai.listrelated.imgchooser.ImgChooser;
+import com.ai.listrelated.imgchooser.ImgChooserUtil;
 import com.ai.listrelated.sample.defaultimpl.DefaultRefreshActivity;
+import com.ai.listrelated.sample.simpleloadmore.SimpleLoadmoreActivity;
 import com.ai.listrelated.sample.web.WebrowserActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,5 +31,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void goWebrowser(View view) {
         startActivity(new Intent(this, WebrowserActivity.class));
+    }
+
+    /**
+     * 简单的加载更多的实现
+     */
+    public void simpleLoadMore(View view) {
+        startActivity(new Intent(this, SimpleLoadmoreActivity.class));
+    }
+
+    public void imageChoose(View view) {
+        ImgChooser chooser = new ImgChooser(this);
+        chooser.showChooseDialog();
     }
 }

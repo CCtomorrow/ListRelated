@@ -45,13 +45,13 @@ public class ImgChooserUtil {
      */
     public static final int CHOOSE_TYPE_CAMERA = 0;
     /**
-     * 从相册选择
-     */
-    public static final int CHOOSE_TYPE_PICTURE = 1;
-    /**
      * 从Document选择
      */
-    public static final int CHOOSE_TYPE_DOCUMENT = 2;
+    public static final int CHOOSE_TYPE_DOCUMENT = 1;
+    /**
+     * 从相册选择
+     */
+    public static final int CHOOSE_TYPE_PICTURE = 2;
     /**
      * 请求权限
      */

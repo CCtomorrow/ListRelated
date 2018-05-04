@@ -24,4 +24,18 @@
         android:text="去到浏览器"
         android:textAllCaps="false"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="simpleLoadMore"
+        android:text="去到另外一个界面"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="imageChoose"
+        android:text="选择图片"
+        android:textAllCaps="false"/>
+
 </LinearLayout>
