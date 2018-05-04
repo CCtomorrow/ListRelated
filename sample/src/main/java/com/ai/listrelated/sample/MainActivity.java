@@ -15,6 +15,7 @@ import com.ai.listrelated.sample.web.WebrowserActivity;
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
+    private ImgChooser chooser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         mToolbar.setTitle(R.string.app_name);
+        chooser = new ImgChooser(this);
     }
 
     public void defaultImpl(View view) {
@@ -41,7 +43,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void imageChoose(View view) {
-        ImgChooser chooser = new ImgChooser(this);
-        chooser.showChooseDialog();
+        chooser.showChooseDialog(false);
+    }
+
+    public void imageChooseDocument(View view) {
+        chooser.showChooseDialog(true);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        chooser.onActivityResult(requestCode, resultCode, data);
     }
 }

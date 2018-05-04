@@ -3,10 +3,14 @@ package com.ai.listrelated.imgchooser;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.ai.listrelated.R;
 
@@ -29,9 +33,7 @@ public class ImgChooser {
      */
     @ImgChooserUtil.ChooseMode
     private int chooseType;
-
     private File originFile;
-
     private String authStr;
 
     private Activity activity;
@@ -42,6 +44,7 @@ public class ImgChooser {
     public ImgChooser(Activity activity) {
         this.activity = activity;
         authStr = activity.getPackageName() + ImgChooserUtil.AUTH_SUFFIX;
+        ImgChooserUtil.deleteTmpImgFile(activity);
     }
 
     public void setFragment(Fragment fragment) {
@@ -74,8 +77,6 @@ public class ImgChooser {
                         }
                         if (Build.VERSION.SDK_INT >= ImgChooserUtil.ANDROID_60) {
                             checkPermissions();
-                            // TODO: 2017/11/21 删除下面的一行代码
-                            handleChoose();
                         } else {
                             handleChoose();
                         }
@@ -84,6 +85,8 @@ public class ImgChooser {
     }
 
     private void checkPermissions() {
+        handleChoose();
+        // FIXME: 2018/5/4 权限自己处理
 //        String p;
 //        if (handleChoose == 0) {
 //            p = Manifest.permission.CAMERA;
@@ -168,54 +171,60 @@ public class ImgChooser {
         if (ok && resultCode == Activity.RESULT_OK) {
             if (requestCode == ImgChooserUtil.REQUEST_PHOTO_CAMERA) {
                 if (originFile != null && originFile.exists()) {
-//                    ILoginMsgClick click = LoginMsgHandler.getMsgHandler().getMsgClick();
-//                    if (click != null) {
-//                        click.goCropHeadImg(activity, originFile.getAbsolutePath(), REQUEST_PHOTO_CUT);
-//                    }
+                    // 去图片裁剪
+                    goImgCrop(activity, originFile);
                 } else {
-//                    TipUtils tipUtils = TipUtils.getTipUtil();
-//                    tipUtils.showMsg(activity, R.string.linghit_profile_change_head_noimg);
+                    // 没有得到图片
+                    Toast.makeText(activity, "没有得到图片", Toast.LENGTH_SHORT).show();
                 }
             } else if (requestCode == ImgChooserUtil.REQUEST_PHOTO_DOCUMENT) {
-                // TipUtils tipUtils = TipUtils.getTipUtil();
-                if (data.getData() != null) {
-                    InputStream pictureInputStream = null;
-                    try {
-                        pictureInputStream = activity.getContentResolver().openInputStream(data.getData());
-                        File file = ImgChooserUtil.getTmpFile(activity);
-                        ImgChooserUtil.writeToFile(pictureInputStream, file);
-//                        ILoginMsgClick click = LoginMsgHandler.getMsgHandler().getMsgClick();
-//                        if (click != null) {
-//                            click.goCropHeadImg(activity, file.getAbsolutePath(), REQUEST_PHOTO_CUT);
-//                        }
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                        // tipUtils.showMsg(activity, R.string.linghit_profile_change_head_noimg);
-                    } finally {
-                        try {
-                            if (pictureInputStream != null) {
-                                pictureInputStream.close();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } else {
-                    // tipUtils.showMsg(activity, R.string.linghit_profile_change_head_noimg);
-                }
+                onPictureReturnedFromGallery(data, activity);
             } else if (requestCode == ImgChooserUtil.REQUEST_PHOTO_PICTURE) {
-                // onPictureReturnedFromGallery(data, activity, callbacks);
-                // 和上面一样的处理
+                onPictureReturnedFromGallery(data, activity);
+            } else if (requestCode == ImgChooserUtil.REQUEST_PHOTO_CUT) {
+                // FIXME: 2018/5/4 裁剪好的图片
+                Log.i("TAG", cropFile.getAbsolutePath());
             }
         }
     }
 
-    private void convertUri(Uri uri) {
+    private void onPictureReturnedFromGallery(Intent data, Activity activity) {
+        if (data.getData() != null) {
+            InputStream pictureInputStream = null;
+            try {
+                pictureInputStream = activity.getContentResolver().openInputStream(data.getData());
+                File file = ImgChooserUtil.getTmpFile(activity);
+                ImgChooserUtil.writeToFile(pictureInputStream, file);
+                // 裁剪图片
+                goImgCrop(activity, file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                // 没有得到图片
+                Toast.makeText(activity, "没有得到图片", Toast.LENGTH_SHORT).show();
+            } finally {
+                try {
+                    if (pictureInputStream != null) {
+                        pictureInputStream.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            Toast.makeText(activity, "没有得到图片", Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    private File cropFile;
+
+    private void goImgCrop(Activity activity, File file) {
+        cropFile = ImgChooserUtil.getTmpFile(activity);
+        // FIXME: 2018/5/4 宽度高度自己调整
+        ImgChooserUtil.cropImageUri(activity, ImgChooserUtil.getUriFromFile(activity, file),
+                Uri.fromFile(cropFile), 480, 480, ImgChooserUtil.REQUEST_PHOTO_CUT);
     }
 
     public interface IReceivedChangedImg {
         void onReceivedChangedImg(String path);
     }
-
 }

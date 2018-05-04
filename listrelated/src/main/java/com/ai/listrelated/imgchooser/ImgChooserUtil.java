@@ -1,8 +1,10 @@
 package com.ai.listrelated.imgchooser;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -73,6 +75,10 @@ public class ImgChooserUtil {
      */
     public static final int REQUEST_PHOTO_DOCUMENT = REQUEST_IDENTIFICATOR + (1 << 13);
     /**
+     * 从裁剪页面回来
+     */
+    public static final int REQUEST_PHOTO_CUT = REQUEST_IDENTIFICATOR + (1 << 14);
+    /**
      * api 24 安卓 7.0 之后的FileProvider的名称，这里以包名为前缀
      */
     public static final String AUTH_SUFFIX = ".image.chooser.file.provider";
@@ -137,6 +143,9 @@ public class ImgChooserUtil {
      */
     public static Intent createCameraIntent(Context context, File file) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (Build.VERSION.SDK_INT >= ANDROID_70) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
         try {
             Uri originUri = ImgChooserUtil.getUriFromFile(context, file);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, originUri);
@@ -179,6 +188,38 @@ public class ImgChooserUtil {
     }
 
     /**
+     * 调用系统的剪裁处理图片并保存至imageUri中，但是这个好像在7.0之后有问题，因为7.0之后使用FileProvider
+     * 但是手机系统是不是支持使用content开始的uri呢
+     * <p>
+     *
+     * @param activity    当前activity
+     * @param orgUri      剪裁原图的Uri
+     * @param desUri      剪裁后的图片的Uri
+     * @param width       剪裁图片的宽度
+     * @param height      剪裁图片高度
+     * @param requestCode 剪裁图片的请求码
+     */
+    public static void cropImageUri(Activity activity, Uri orgUri, Uri desUri, int width, int height, int requestCode) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        if (Build.VERSION.SDK_INT >= ANDROID_70) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+        intent.setDataAndType(orgUri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", width);
+        intent.putExtra("outputY", height);
+        intent.putExtra("scale", true);
+        //将剪切的图片保存到目标Uri中
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, desUri);
+        intent.putExtra("return-data", false);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true);
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+    /**
      * 获取MimeType
      */
     private static String getMimeType(Context context, Uri uri) {
@@ -213,5 +254,4 @@ public class ImgChooserUtil {
             e.printStackTrace();
         }
     }
-
 }
