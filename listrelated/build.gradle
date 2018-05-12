@@ -4,7 +4,6 @@ group = 'com.github.qyai'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -28,25 +27,18 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     // v4
-    compile 'com.android.support:support-fragment:25.1.0@aar'
-    compile 'com.android.support:support-media-compat:25.1.0@aar'
-    compile 'com.android.support:support-core-utils:25.1.0@aar'
-    compile 'com.android.support:support-core-ui:25.1.0@aar'
-    compile 'com.android.support:support-compat:25.1.0@aar'
-    compile 'com.android.support:support-v13:25.1.0@aar'
+    api 'com.android.support:support-fragment:26.1.0'
+    implementation 'com.android.support:support-v13:26.1.0'
 
     // v7
-    compile 'com.android.support:appcompat-v7:25.1.0@aar'
-    compile 'com.android.support:recyclerview-v7:25.1.0@aar'
-    compile 'com.android.support:support-annotations:25.1.0@jar'
-    compile 'com.android.support:support-vector-drawable:25.1.0@aar'
-    compile 'com.android.support:animated-vector-drawable:25.1.0@aar'
+    api 'com.android.support:appcompat-v7:26.1.0'
+    api 'com.android.support:recyclerview-v7:26.1.0'
 
     // logger
     // compile 'com.orhanobut:logger:1.15@aar'
-    compile 'com.github.zhaokaiqiang.klog:library:1.6.0'
+    api 'com.github.zhaokaiqiang.klog:library:1.6.0'
 }
 
 // 指定编码

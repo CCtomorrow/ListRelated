@@ -4,9 +4,14 @@ buildscript {
     repositories {
         jcenter()
         mavenCentral()
+        google()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:3.1.2'
         // classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
 
@@ -19,6 +24,11 @@ allprojects {
     repositories {
         jcenter()
         mavenCentral()
+        google()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
 }
 
@@ -28,13 +38,13 @@ task clean(type: Delete) {
 
 ext {
     android = [
-            compileSdkVersion       : 25,
-            buildToolsVersion       : "25.0.2",
+            compileSdkVersion       : 26,
+            buildToolsVersion       : "26.0.3",
             minSdkVersion           : 15,
-            targetSdkVersion        : 25,
+            targetSdkVersion        : 26,
             versionCode             : 100,
             versionName             : "1.0.0",
-            androidSupportSdkVersion: "25.2.0",
+            androidSupportSdkVersion: "26.1.0",
             espressoSdkVersion      : "2.2.2"
     ]
 }
