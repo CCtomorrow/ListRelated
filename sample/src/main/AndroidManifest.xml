@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.ai.listrelated.sample">
+    package="com.ai.listrelated.sample">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name="com.ai.listrelated.sample.App"
@@ -15,15 +15,16 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.ai.listrelated.sample.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.ai.listrelated.sample.defaultimpl.DefaultRefreshActivity"/>
-        <activity android:name="com.ai.listrelated.sample.web.WebrowserActivity"/>
-        <activity android:name=".simpleloadmore.SimpleLoadmoreActivity"/>
+        <activity android:name="com.ai.listrelated.sample.defaultimpl.DefaultRefreshActivity" />
+        <activity android:name="com.ai.listrelated.sample.web.WebrowserActivity" />
+        <activity android:name=".simpleloadmore.SimpleLoadmoreActivity" />
+        <activity android:name=".img.ImageSizeActivity" />
+        <activity android:name=".info.DeviceInfoActivity" />
     </application>
 
 </manifest>

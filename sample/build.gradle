@@ -26,12 +26,16 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':listrelated')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     // optional
     // multi type implement
     implementation 'me.drakeet.multitype:multitype:2.3.2@aar'
     // optional
     // pull refresh
     implementation 'in.srain.cube:ultra-ptr:1.0.11@aar'
+
+    // glide
+    implementation 'com.github.bumptech.glide:glide:3.8.0'
 
     implementation 'com.android.support:design:26.1.0@aar'
     implementation 'com.android.support:transition:26.1.0@aar'

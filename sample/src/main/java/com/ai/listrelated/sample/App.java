@@ -2,6 +2,7 @@ package com.ai.listrelated.sample;
 
 import android.app.Application;
 
+import com.bumptech.glide.Glide;
 import com.socks.library.KLog;
 
 /**
@@ -16,7 +17,8 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        // Logger.init("ListRelated").logLevel(LogLevel.FULL);
+        //Logger.init("ListRelated").logLevel(LogLevel.FULL);
         KLog.init(true, "ListRelated");
+        //Glide.setModulesEnabled(true);
     }
 }

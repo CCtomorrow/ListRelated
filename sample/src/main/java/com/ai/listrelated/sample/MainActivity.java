@@ -9,6 +9,8 @@ import android.view.View;
 import com.ai.listrelated.imgchooser.ImgChooser;
 import com.ai.listrelated.imgchooser.ImgChooserUtil;
 import com.ai.listrelated.sample.defaultimpl.DefaultRefreshActivity;
+import com.ai.listrelated.sample.img.ImageSizeActivity;
+import com.ai.listrelated.sample.info.DeviceInfoActivity;
 import com.ai.listrelated.sample.simpleloadmore.SimpleLoadmoreActivity;
 import com.ai.listrelated.sample.web.WebrowserActivity;
 
@@ -54,5 +56,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         chooser.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void imageSize(View view) {
+        startActivity(new Intent(this, ImageSizeActivity.class));
+    }
+
+    public void deviceInfo(View view) {
+        startActivity(new Intent(this, DeviceInfoActivity.class));
     }
 }
