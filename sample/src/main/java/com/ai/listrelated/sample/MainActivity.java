@@ -13,6 +13,7 @@ import com.ai.listrelated.sample.img.ImageSizeActivity;
 import com.ai.listrelated.sample.info.DeviceInfoActivity;
 import com.ai.listrelated.sample.simpleloadmore.SimpleLoadmoreActivity;
 import com.ai.listrelated.sample.web.WebrowserActivity;
+import com.ai.listrelated.sample.zoom.ZoomActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,5 +65,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void deviceInfo(View view) {
         startActivity(new Intent(this, DeviceInfoActivity.class));
+    }
+
+    public void ZoomView(View view) {
+        startActivity(new Intent(this, ZoomActivity.class));
     }
 }

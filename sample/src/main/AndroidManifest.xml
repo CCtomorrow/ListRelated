@@ -25,6 +25,7 @@
         <activity android:name=".simpleloadmore.SimpleLoadmoreActivity" />
         <activity android:name=".img.ImageSizeActivity" />
         <activity android:name=".info.DeviceInfoActivity" />
+        <activity android:name=".zoom.ZoomActivity"/>
     </application>
 
 </manifest>
