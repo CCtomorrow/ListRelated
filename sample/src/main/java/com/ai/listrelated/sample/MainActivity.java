@@ -11,6 +11,7 @@ import com.ai.listrelated.imgchooser.ImgChooserUtil;
 import com.ai.listrelated.sample.defaultimpl.DefaultRefreshActivity;
 import com.ai.listrelated.sample.img.ImageSizeActivity;
 import com.ai.listrelated.sample.info.DeviceInfoActivity;
+import com.ai.listrelated.sample.input.InputActivity;
 import com.ai.listrelated.sample.simpleloadmore.SimpleLoadmoreActivity;
 import com.ai.listrelated.sample.web.WebrowserActivity;
 import com.ai.listrelated.sample.zoom.ZoomActivity;
@@ -69,5 +70,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void ZoomView(View view) {
         startActivity(new Intent(this, ZoomActivity.class));
+    }
+
+    public void InputLimit(View view) {
+        startActivity(new Intent(this, InputActivity.class));
     }
 }

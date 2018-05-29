@@ -21,6 +21,17 @@ public class RefreshDefaultHandler implements RefreshHandler {
         return canChildScrollUp(target);
     }
 
+    /**
+     * ViewCompat.canScrollVertically(view, int) ，第二个int类型参数
+     * 负数: 顶部是否可以往下滚动
+     * 正数: 底部是否可以往上滚动
+     * 官方描述：“Negative to check scrolling up, positive to check scrolling down”
+     * 这里的check不能翻译成“是否”，而是“停止、制止、阻止、遏制”的意思，so：
+     * 第二个参数int 负数表示阻止（停止）向上滑动，正数表示阻止（停止）向下滑动。
+     *
+     * @param view
+     * @return
+     */
     public static boolean canChildScrollUp(View view) {
         if (android.os.Build.VERSION.SDK_INT < 14) {
             if (view instanceof AbsListView) {

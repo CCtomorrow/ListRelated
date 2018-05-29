@@ -64,4 +64,11 @@
         android:onClick="ZoomView"
         android:text="缩放View"
         android:textAllCaps="false" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="InputLimit"
+        android:text="文字限制"
+        android:textAllCaps="false" />
 </LinearLayout>
