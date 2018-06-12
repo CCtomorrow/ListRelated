@@ -2,16 +2,30 @@
 <resources>
 
     <declare-styleable name="OppositeLayout">
-        <attr name="layout_horizontal_center" format="reference"/>
-        <attr name="layout_relative_top" format="float"/>
-        <attr name="layout_relative_bottom" format="float"/>
-        <attr name="layout_relative_left" format="float"/>
+        <attr name="layout_horizontal_center" format="reference" />
+        <attr name="layout_relative_top" format="float" />
+        <attr name="layout_relative_bottom" format="float" />
+        <attr name="layout_relative_left" format="float" />
         <attr name="layout_relative_height" format="float">
-            <enum name="relative_wrap_content" value="-1"/>
+            <enum name="relative_wrap_content" value="-1" />
         </attr>
         <attr name="layout_relative_width" format="float">
-            <enum name="relative_wrap_content" value="-1"/>
+            <enum name="relative_wrap_content" value="-1" />
         </attr>
+    </declare-styleable>
+
+    <attr name="pictextPadding" format="dimension" />
+    <attr name="starColor" format="color" />
+
+    <declare-styleable name="ConsRatingBar">
+        <attr name="android:src" />
+        <attr name="android:text" />
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="android:drawablePadding" />
+        <attr name="pictextPadding" />
+        <attr name="android:numStars" />
+        <attr name="starColor" />
     </declare-styleable>
 
 </resources>

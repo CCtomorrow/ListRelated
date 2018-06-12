@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_layout"/>
+    <include layout="@layout/toolbar_layout" />
 
     <TextView
         android:id="@+id/money"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:textColor="#333333"
         android:textSize="16sp"
-        tools:text="你好吗?"/>
+        tools:text="你好吗?" />
+
+    <com.ai.listrelated.view.RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="5dp"
+        android:numStars="5"
+        android:src="@drawable/star"
+        android:text="谢谢你光顾"
+        android:textColor="#333333"
+        android:textSize="22sp"
+        app:pictextPadding="5dp"
+        app:starColor="#ff9c9c" />
 
 </LinearLayout>
