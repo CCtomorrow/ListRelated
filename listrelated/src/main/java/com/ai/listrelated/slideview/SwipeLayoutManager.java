@@ -6,7 +6,6 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -69,11 +68,12 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
     private int mVerticalOffset;
     private int mFirstVisiPos;
 
-    private ILoadMore mILoadMore;
-
+    private ILoadDataListener mILoadDataListener;
     private static final String tag = "SwipeLayoutManager";
 
-    public interface ILoadMore {
+    public interface ILoadDataListener {
+        void onRefresh();
+
         void onLoadMore();
     }
 
@@ -104,8 +104,8 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
         });
     }
 
-    public void setILoadMore(ILoadMore loadMore) {
-        mILoadMore = loadMore;
+    public void setILoadDataListener(ILoadDataListener loadData) {
+        mILoadDataListener = loadData;
     }
 
     @Override
@@ -243,6 +243,9 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
         }
         //顶部下拉
         if (dy < 0 && mVerticalOffset <= 0 && mFirstVisiPos <= 0) {
+            if (mILoadDataListener != null) {
+                mILoadDataListener.onRefresh();
+            }
             return 0;
         }
         //底部上拉
@@ -411,8 +414,8 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
                 removeAndRecycleView(topView, mRecycler);
                 canScroller = true;
                 if (mFirstVisiPos == getItemCount() - showItemCount) {
-                    if (mILoadMore != null) {
-                        mILoadMore.onLoadMore();
+                    if (mILoadDataListener != null) {
+                        mILoadDataListener.onLoadMore();
                     }
                 }
             }
