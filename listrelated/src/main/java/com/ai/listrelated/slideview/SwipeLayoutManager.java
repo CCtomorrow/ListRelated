@@ -161,10 +161,10 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
                 futureView.setScaleX(bottomView.getScaleX() - scaleGapX);
                 futureView.setScaleY(bottomView.getScaleY() + scaleGapY);
             }
-            Log.e(tag, "before topView translationY:" + topView.getTranslationY());
+            //Log.e(tag, "before topView translationY:" + topView.getTranslationY());
             // 顶部View不用变化
             topView.setTranslationY(-mVerticalOffset);
-            Log.e(tag, "after topView translationY:" + topView.getTranslationY());
+            //Log.e(tag, "after topView translationY:" + topView.getTranslationY());
             for (int i = 1; i < getChildCount(); i++) {
                 View child = getChildAt(i);
                 //x 0.89 ---> 0.945
@@ -252,7 +252,7 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
         if (mScrollerState == STATE_DEF) {
             mScrollerState = dy > 0 ? STATE_UP : STATE_DOWN;
         }
-        Log.e(tag, "scrollVerticallyBy dy:" + dy);
+        //Log.e(tag, "scrollVerticallyBy dy:" + dy);
         mVerticalOffset += dy;
         scrollBy(state);
         return dy;
@@ -271,7 +271,7 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
         if (mScrollerState == STATE_DEF) {
             mVerticalOffset = 0;
         }
-        Log.e(tag, "onLayoutChildren mScrollerState:" + mScrollerState + "  mVerticalOffset:" + mVerticalOffset);
+        //Log.e(tag, "onLayoutChildren mScrollerState:" + mScrollerState + "  mVerticalOffset:" + mVerticalOffset);
         //移除所有的view
         detachAndScrapAttachedViews(recycler);
         //将可见区域的childView layout出来
@@ -309,12 +309,14 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
             //测试过程发现，滑动过程，会触发到onLayoutChildren
             if (start == 0) {
                 if (mScrollerState == STATE_UP) {
-                    Log.e(tag, "layoutScrap STATE_UP mVerticalOffset:" + mVerticalOffset);
+                    //Log.e(tag, "layoutScrap STATE_UP mVerticalOffset:" + mVerticalOffset);
                     view.setTranslationY(-mVerticalOffset);
-                } else if (mScrollerState == STATE_DOWN) {
-                    Log.e(tag, "layoutScrap STATE_DOWN mVerticalOffset:" + mVerticalOffset);
-                    view.setTranslationY(-getVerticalSpace() - mVerticalOffset);
-                } else {
+                }
+//                else if (mScrollerState == STATE_DOWN) {
+//                    //Log.e(tag, "layoutScrap STATE_DOWN mVerticalOffset:" + mVerticalOffset);
+//                    view.setTranslationY(-getVerticalSpace() - mVerticalOffset);
+//                }
+                else {
                     view.setTranslationY(0);
                 }
             } else {
@@ -343,7 +345,7 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent event) {
         final int action = event.getActionMasked();
         if (action == MotionEvent.ACTION_DOWN) {
-            Log.e(tag, "onInterceptTouchEvent ACTION_DOWN");
+            //Log.e(tag, "onInterceptTouchEvent ACTION_DOWN");
             mInitialTouchX = event.getX();
             mInitialTouchY = event.getY();
             obtainVelocityTracker();
@@ -353,7 +355,7 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
 //            }
             //Log.e(tag, "onInterceptTouchEvent ACTION_MOVE");
         } else if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
-            Log.e(tag, "onInterceptTouchEvent ACTION_UP");
+            //Log.e(tag, "onInterceptTouchEvent ACTION_UP");
             //isCanScrollerAgain = false;
             upHandle();
 //            mRecyclerView.postDelayed(new Runnable() {
