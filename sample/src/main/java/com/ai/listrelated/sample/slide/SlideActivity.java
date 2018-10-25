@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ai.listrelated.sample.R;
 import com.ai.listrelated.slideview.SwipeLayoutManager;
@@ -37,6 +38,17 @@ public class SlideActivity extends AppCompatActivity {
 
     private void initEvent() {
         SwipeLayoutManager manager = new SwipeLayoutManager(this, mRecyclerView);
+        manager.setILoadDataListener(new SwipeLayoutManager.ILoadDataListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(getApplication(), "刷新", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLoadMore() {
+
+            }
+        });
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(new RvAdapter());
     }

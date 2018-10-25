@@ -64,6 +64,7 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
      * 手指松开后的minDuration的时间里面不允许再次滑动
      */
     //private boolean isCanScrollerAgain = true;
+    private boolean touching = false;
     private long downInLast = 0;
     private int mVerticalOffset;
     private int mFirstVisiPos;
@@ -243,7 +244,8 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
         }
         //顶部下拉
         if (dy < 0 && mVerticalOffset <= 0 && mFirstVisiPos <= 0) {
-            if (mILoadDataListener != null) {
+            if (mILoadDataListener != null && touching) {
+                touching = false;
                 mILoadDataListener.onRefresh();
             }
             return 0;
@@ -349,6 +351,7 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
         final int action = event.getActionMasked();
         if (action == MotionEvent.ACTION_DOWN) {
             //Log.e(tag, "onInterceptTouchEvent ACTION_DOWN");
+            touching = true;
             mInitialTouchX = event.getX();
             mInitialTouchY = event.getY();
             obtainVelocityTracker();
@@ -360,6 +363,7 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
         } else if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
             //Log.e(tag, "onInterceptTouchEvent ACTION_UP");
             //isCanScrollerAgain = false;
+            touching = false;
             upHandle();
 //            mRecyclerView.postDelayed(new Runnable() {
 //                @Override
