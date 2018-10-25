@@ -71,4 +71,19 @@
         android:onClick="InputLimit"
         android:text="文字限制"
         android:textAllCaps="false" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="Notification"
+        android:text="通知"
+        android:textAllCaps="false" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="Slidview"
+        android:text="滑动LayoutManager"
+        android:textAllCaps="false" />
+
 </LinearLayout>
