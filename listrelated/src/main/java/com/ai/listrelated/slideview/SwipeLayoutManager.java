@@ -64,24 +64,28 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
      * 手指松开后的minDuration的时间里面不允许再次滑动
      */
     //private boolean isCanScrollerAgain = true;
-    private boolean touching = false;
     private long downInLast = 0;
+    private long downOutLast = 0;
+    private boolean touching = false;
     private int mVerticalOffset;
     private int mFirstVisiPos;
 
     private ILoadDataListener mILoadDataListener;
+
     private static final String tag = "SwipeLayoutManager";
 
     public interface ILoadDataListener {
         void onRefresh();
 
         void onLoadMore();
+
+        void onSwipEnd(int position);
     }
 
     public SwipeLayoutManager(Context context, RecyclerView recyclerView) {
         mRecyclerView = recyclerView;
         showItemCount = 2;
-        scaleGapX = 0.06F;
+        scaleGapX = 0.12F;
         scaleGapY = 0.045F;
         scales = new float[showItemCount + 1][2];
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
@@ -371,7 +375,6 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
 //                    isCanScrollerAgain = true;
 //                }
 //            }, mInDuration * 2);
-            mScrollerState = STATE_DEF;
             if (mVelocityTracker != null) {
                 mVelocityTracker.clear();
             }
@@ -401,6 +404,7 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
         int all = getVerticalSpace();
         //手指往上滑动，getTranslationY为负数
         float originy = topView.getTranslationY();
+        //Log.e(tag, "smtoOut originy translationY:" + originy);
         ObjectAnimator animator = ObjectAnimator
                 .ofFloat(topView, "translationY", originy, -all);
         animator.setInterpolator(new AccelerateInterpolator());
@@ -415,12 +419,16 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
             @Override
             public void onAnimationEnd(Animator animation) {
                 mFirstVisiPos++;
+                mScrollerState = STATE_DEF;
                 removeAndRecycleView(topView, mRecycler);
                 canScroller = true;
                 if (mFirstVisiPos == getItemCount() - showItemCount) {
                     if (mILoadDataListener != null) {
                         mILoadDataListener.onLoadMore();
                     }
+                }
+                if (mILoadDataListener != null) {
+                    mILoadDataListener.onSwipEnd(mFirstVisiPos);
                 }
             }
         });
@@ -457,6 +465,7 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                mScrollerState = STATE_DEF;
                 if (getChildCount() > showItemCount) {
                     removeAndRecycleView(getChildClosestToEnd(), mRecycler);
                 }
@@ -496,6 +505,7 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
             @Override
             public void onAnimationEnd(Animator animation) {
                 mFirstVisiPos--;
+                mScrollerState = STATE_DEF;
                 if (getChildCount() > showItemCount) {
                     removeAndRecycleView(getChildClosestToEnd(), mRecycler);
                 }
@@ -533,6 +543,7 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                mScrollerState = STATE_DEF;
                 if (getChildCount() > showItemCount) {
                     removeAndRecycleView(getChildClosestToStart(), mRecycler);
                 }
@@ -571,6 +582,11 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
         if (mScrollerState == STATE_UP) {
             if ((couldToNext || needToNext) && mFirstVisiPos != getItemCount() - 1) {
                 //Log.e(tag, "upHandle out");
+                long now = System.currentTimeMillis();
+                if (now - downOutLast < mDuration) {
+                    return;
+                }
+                downOutLast = now;
                 smtoOut();
             } else {
                 //Log.e(tag, "upHandle origin");
