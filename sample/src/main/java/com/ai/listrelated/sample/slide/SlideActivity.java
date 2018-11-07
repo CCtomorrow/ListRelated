@@ -48,6 +48,11 @@ public class SlideActivity extends AppCompatActivity {
             public void onLoadMore() {
 
             }
+
+            @Override
+            public void onSwipEnd(int position) {
+
+            }
         });
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(new RvAdapter());

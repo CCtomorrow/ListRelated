@@ -353,7 +353,7 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
     @Override
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent event) {
         if (!canScroller) {
-            return false;
+            return true;
         }
         final int action = event.getActionMasked();
         if (action == MotionEvent.ACTION_DOWN) {
@@ -422,9 +422,9 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
             @Override
             public void onAnimationEnd(Animator animation) {
                 mFirstVisiPos++;
-                mScrollerState = STATE_DEF;
                 removeAndRecycleView(topView, mRecycler);
                 canScroller = true;
+                mScrollerState = STATE_DEF;
                 if (mFirstVisiPos == getItemCount() - showItemCount) {
                     if (mILoadDataListener != null) {
                         mILoadDataListener.onLoadMore();
@@ -468,11 +468,11 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                mScrollerState = STATE_DEF;
                 if (getChildCount() > showItemCount) {
                     removeAndRecycleView(getChildClosestToEnd(), mRecycler);
                 }
                 canScroller = true;
+                mScrollerState = STATE_DEF;
             }
         });
         animator.start();
@@ -508,11 +508,11 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
             @Override
             public void onAnimationEnd(Animator animation) {
                 mFirstVisiPos--;
-                mScrollerState = STATE_DEF;
                 if (getChildCount() > showItemCount) {
                     removeAndRecycleView(getChildClosestToEnd(), mRecycler);
                 }
                 canScroller = true;
+                mScrollerState = STATE_DEF;
             }
         });
         animator.start();
@@ -546,11 +546,11 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                mScrollerState = STATE_DEF;
                 if (getChildCount() > showItemCount) {
                     removeAndRecycleView(getChildClosestToStart(), mRecycler);
                 }
                 canScroller = true;
+                mScrollerState = STATE_DEF;
             }
         });
         animator.start();
