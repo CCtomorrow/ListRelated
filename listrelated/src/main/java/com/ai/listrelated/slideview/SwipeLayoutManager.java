@@ -352,6 +352,9 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
 
     @Override
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent event) {
+        if (!canScroller) {
+            return false;
+        }
         final int action = event.getActionMasked();
         if (action == MotionEvent.ACTION_DOWN) {
             //Log.e(tag, "onInterceptTouchEvent ACTION_DOWN");
@@ -633,5 +636,4 @@ public class SwipeLayoutManager extends RecyclerView.LayoutManager implements It
     public int getHorizontalSpace() {
         return getWidth() - getPaddingLeft() - getPaddingRight();
     }
-
 }
